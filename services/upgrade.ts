@@ -16,15 +16,12 @@ export async function upgradeOldContract(accountAddress: string, privateKey: str
   const proxyContract = await loadContract(accountAddress);
   const proxyClassHash = await accountToUpgrade.getClassHashAt(accountAddress);
   console.log("proxyClassHash", proxyClassHash);
-  let implementationClassHash, newProxy;
-  if (proxyClassHash === v0_2_2_proxyClassHash) {
-    implementationClassHash = num.toHexString((await proxyContract.get_implementation()).implementation);
-    newProxy = true;
-  } else {
+  if (proxyClassHash !== v0_2_2_proxyClassHash) {
     throw new Error("Unrecognized proxy");
   }
+
+  let implementationClassHash = num.toHexString((await proxyContract.get_implementation()).implementation);
   console.log("implementationClassHash", implementationClassHash);
-  console.log("newProxy", newProxy);
 
   if (implementationClassHash === latestAccountClassHash_V_0_2_3_1_classHash) {
     throw new Error("Account is in 0.2.3.1, use argent X to upgrade to newer versions");
@@ -33,9 +30,6 @@ export async function upgradeOldContract(accountAddress: string, privateKey: str
   } else {
     throw new Error("Unknown implementation class hash");
   }
-
-  const { abi } = await provider.getClassByHash(implementationClassHash);
-  const accountContract = new Contract(abi, accountAddress, provider);
 
   const currentSigner = num.toHexString(await provider.getStorageAt(accountAddress, selector.starknetKeccak("_signer")));
   if (num.toBigInt(currentSigner) !== keyPair.publicKey) {
