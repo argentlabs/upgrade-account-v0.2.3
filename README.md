@@ -10,7 +10,7 @@ Install bun https://bun.sh/docs/installation
 Run
 
 ```bash
-yarn install
+bun install
 ```
 
 Create a file name `.env` following the example in `.env.example`. Make sure you fill ADDRESS with the address of the account to upgrade, and PRIVATE_KEY with the private key controlling that account.
