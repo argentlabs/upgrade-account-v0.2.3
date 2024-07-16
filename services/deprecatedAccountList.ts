@@ -1,0 +1,5 @@
+export const latestAccountClassHash_V_0_2_3_1_classHash =
+  "0x33434ad846cdd5f23eb73ff09fe6fddd568284a0fb7d1be20ee482f044dabe2";
+
+export const v0_2_2_proxyClassHash = "0x25ec026985a3bf9d0cc1fe17326b245dfdc3ff89b8fde106542a3ea56c5a918";
+export const v_0_2_3_classHash = "0x1a7820094feaf82d53f53f214b81292d717e7bb9a92bb2488092cd306f3993f";
